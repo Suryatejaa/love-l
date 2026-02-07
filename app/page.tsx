@@ -14,7 +14,7 @@ export default function Home() {
       const message = "Yayy, We are together now!";
       
       // Detect if iOS
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
       
       let whatsappUrl: string;
       if (isIOS) {
