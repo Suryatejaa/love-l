@@ -10,8 +10,21 @@ export default function Home() {
   const handleYesClick = () => {
     setShowModal(true);
     setTimeout(() => {
+      const phoneNumber = "916301561744";
       const message = "Yayy, We are together now!";
-      const whatsappUrl = `https://wa.me/916301561744?text=${encodeURIComponent(message)}`;
+      
+      // Detect if iOS
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      
+      let whatsappUrl: string;
+      if (isIOS) {
+        // iOS: Use the WhatsApp scheme with message
+        whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+      } else {
+        // Android and other: Use wa.me link
+        whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      }
+      
       window.open(whatsappUrl, '_blank');
       setShowModal(false);
     }, 2500);
